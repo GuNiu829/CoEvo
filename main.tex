@@ -1,0 +1,123 @@
+%%
+%% CoEvoP&R ASP-DAC 2027 manuscript skeleton.
+%%
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[sigconf,anonymous,review]{acmart}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{multirow}
+\usepackage{caption}
+\captionsetup{font=small}
+\definecolor{rankfirst}{HTML}{FFCCCC}
+\definecolor{ranksecond}{HTML}{CCE5FF}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+%% ASP-DAC 2027 initial submissions are double-blind. CCS metadata can be
+%% restored for the camera-ready version if ACM/ASP-DAC requires it.
+\settopmatter{printccs=false}
+
+\setcopyright{none}
+\copyrightyear{2027}
+\acmYear{2027}
+%% TODO(camera-ready): ACM assigns the DOI after acceptance and copyright transfer.
+\acmDOI{}
+\acmConference[ASPDAC '27]{32nd Asia and South Pacific Design Automation Conference
+  (ASP-DAC 2027)}{January 25--28, 2027}{Tokyo, Japan}
+\acmBooktitle{Proceedings of the 32nd Asia and South Pacific Design Automation
+  Conference (ASP-DAC 2027), January 25--28, 2027, Tokyo, Japan}
+%% TODO(camera-ready): ACM assigns the ISBN after acceptance and copyright transfer.
+\acmISBN{}
+
+\begin{document}
+
+\title{CoEvoP\&R: Co-Evolving Placement Objectives with Routing Feedback via Large Language Models}
+
+%% Initial review is anonymous. Replace these placeholders for camera-ready.
+\author{Anonymous Author(s)}
+\affiliation{%
+  \institution{Anonymous Institution}
+  \country{Anonymous Country}}
+
+\renewcommand{\shortauthors}{Anonymous}
+
+\begin{abstract}
+Analytical placers optimize half-perimeter wirelength (HPWL) and density, but
+recent post-route benchmarking studies show that these proxies correlate poorly with
+routed wirelength, routing congestion, and timing. Existing routing-aware placers
+handle this gap with fixed expert terms or learned black-box surrogates, leaving
+the differentiable objective itself fixed. CoEvoP\&R instead makes complete
+replacement objectives the search target. A large language model (LLM)
+proposes readable symbolic programs, DREAMPlace measures their optimizer
+behavior, and scheduled routed promotions condition later proposals.
+This optimizer-embedded loop requires every candidate to pass a restricted
+objective interface, autograd checks, term-compatibility rules, and a
+cost-scaled placement/routing cascade. A perturbation-based proxy audit gives
+cheap timing proxies selection influence only when they are non-redundant with
+HPWL and agree with downstream timing. CoEvoP\&R is evaluated on ChiPBench Nangate45, ICCAD
+2015 Superblue, and ASAP7 cross-node transfer. On the primary ChiPBench
+benchmark, CoEvoP\&R reduces DREAMPlace HPWL by 16.9\% and density overflow
+by 36.7\% on average over native DREAMPlace, while improving OpenTimer
+placement-RC WNS by 0.70 ns and TNS by 912 ns. Each search returns a compact
+symbolic objective that plugs directly into DREAMPlace.
+\end{abstract}
+
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10010147.10010178.10010179</concept_id>
+<concept_desc>Computing methodologies~Machine learning</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10010583.10010786</concept_id>
+<concept_desc>Hardware~Electronic design automation</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10010583.10010588.10010559</concept_id>
+<concept_desc>Hardware~Physical design (EDA)</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Machine learning}
+\ccsdesc[500]{Hardware~Electronic design automation}
+\ccsdesc[500]{Hardware~Physical design (EDA)}
+
+\keywords{electronic design automation, placement, routing, large language models,
+  objective functions}
+
+\maketitle
+
+% Queue the two-column method overview before page 2 begins.
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{graphs/Figure1.pdf}
+\caption{CoEvoP\&R evolves complete placement objectives through
+archive-conditioned proposal, safe EDA evaluation, and scheduled routed
+feedback.}
+\Description{An LLM proposes objective programs, a restricted interface lowers
+and evaluates them with EDA tools, and an archive reconstructs measured
+feedback for later proposals.}
+\label{fig:loop}
+\end{figure*}
+
+\input{sections/introduction}
+
+\input{sections/related_work}
+
+\input{sections/method}
+
+\input{sections/experiments_and_results}
+
+\input{sections/conclusion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{sample-base}
+
+\end{document}

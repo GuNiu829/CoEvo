@@ -1,0 +1,64 @@
+\section{Introduction}
+
+Modern analytical placers make global placement tractable by optimizing
+half-perimeter wirelength (HPWL) plus a density penalty. These cheap, smooth
+proxies enable gradient-based tools such as DREAMPlace~\cite{dreamplace}.
+However, the same objective choice also limits
+what the placer can optimize. ChiPBench shows that placement-stage HPWL
+correlates poorly with post-route quality on modern industrial designs,
+including routed wirelength, routing congestion, worst negative slack (WNS),
+total negative slack (TNS), and design-rule checking (DRC)
+count~\cite{chipbench}. The analytical placer optimizes one target while the
+completed flow depends on another.
+
+Routing-aware placement has addressed this mismatch through two main changes
+to the objective. The first adds hand-engineered symbolic terms on top of a
+fixed placement objective. Rectangular Uniform wire DensitY (RUDY) estimates
+routing demand from placement geometry~\cite{rudy}, and later congestion and
+density controls build on the same idea. Terms of this kind sharpen routing
+awareness but fix the objective form and require expert redesign for each
+technology or benchmark family. The second inserts learned routing or timing
+surrogates into placement. LaMPlace improves post-route WNS by 43.0 percent
+and TNS by 30.4 percent~\cite{lamplace}. GOALPlace reduces DRC violations by
+up to tenfold~\cite{goalplace}. RoutePlacer lowers routing congestion while
+preserving routed wirelength~\cite{routeplacer}. These methods add downstream
+awareness but embed part of the objective in black-box models that engineers
+cannot inspect or edit. Neither change makes the differentiable placement
+objective itself searchable. This leaves an open third path: direct search over
+readable, differentiable objective forms that still run inside analytical
+placement.
+
+CoEvoP\&R searches this third path with LLM program evolution. FunSearch,
+Eureka, LLM-SR, and AlphaEvolve show that LLMs can revise executable programs
+using automatic evaluator feedback~\cite{funsearch,eureka,llmsr,alphaevolve}.
+EvoPlace and VeoPlace bring foundation-model search into placement by evolving
+optimizer components or guiding macro-placement
+actions~\cite{evoplace,veoplace}. These systems search initialization,
+optimizer, or action choices around the analytical objective. CoEvoP\&R
+searches the objective itself: an LLM proposes complete symbolic replacement objectives,
+and DREAMPlace evaluates each safe candidate inside the gradient path that
+produces a placement. This embedding makes optimizer
+compatibility part of the search space. Static admission, diagnostic autograd
+checks, and runtime guards reject incompatible or unstable objectives. Because
+full OpenROAD routing is too expensive for every candidate, scheduled
+promotions return routed evidence to later proposals~\cite{openroad}. A proxy
+audit gives cheap timing signals selection influence only after they are
+non-redundant with HPWL and agree with downstream timing.
+
+CoEvoP\&R makes four contributions.
+\begin{itemize}
+  \item \textbf{Searchable objectives.} CoEvoP\&R searches complete
+  differentiable replacement objectives and discovers readable formulas that
+  improve placement and post-GRT quality over the native DREAMPlace objective.
+  \item \textbf{Optimizer-embedded evolution.} CoEvoP\&R inserts each LLM
+  objective into the DREAMPlace gradient path through static, diagnostic, and
+  runtime safety checks.
+  \item \textbf{Proxy audit.} CoEvoP\&R gives cheap timing proxies
+  selection influence only after non-redundancy and routed-agreement checks.
+  \item \textbf{Deployable artifact.} Each CoEvoP\&R search returns a compact
+  symbolic objective that engineers can inspect, edit, and plug into DREAMPlace.
+\end{itemize}
+
+On the primary Nangate45 panel, CoEvoP\&R reduces DREAMPlace HPWL by 16.9\%
+and density overflow by 36.7\% on average, while improving OpenTimer
+placement-RC WNS by 0.70 ns and TNS by 912 ns.

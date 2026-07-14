@@ -1,0 +1,50 @@
+\section{Related Work}
+
+\paragraph{Routability-Aware Objectives.}
+Routability-aware placement exposes downstream routing or timing cost to an
+analytical optimizer. RePlAce established the electrostatic density
+formulation~\cite{replace}, and DREAMPlace made analytical placement
+GPU-efficient in PyTorch~\cite{dreamplace}. One line adds expert symbolic
+terms: RUDY estimates routing demand from placement
+geometry~\cite{rudy}. A second line inserts learned downstream surrogates.
+LaMPlace, GOALPlace, and RoutePlacer connect placement to post-route timing,
+design-rule checking (DRC), or congestion through masks, graph neural
+networks, and learned routability signals~\cite{lamplace,goalplace,routeplacer}.
+These methods add downstream awareness through fixed expert terms or learned
+components. CoEvoP\&R searches for readable symbolic objective forms that
+still execute inside the analytical placer.
+
+\paragraph{Foundation-Model Placement Search.}
+Placement search methods differ by the artifact they modify. Reinforcement
+learning places macros sequentially~\cite{mirhoseini2021}. AutoDMP tunes
+macro-placement parameters with multi-objective Bayesian
+optimization~\cite{autodmp}, and HyperPlace uses an off-the-shelf LLM to tune
+GPU-placer hyperparameters~\cite{hyperplace}. EvoPlace evolves optimizer
+code, including initialization, preconditioning, and update components, with
+HPWL feedback~\cite{evoplace}. VeoPlace uses a vision-language model (VLM) to
+guide macro-placement actions through evolutionary search~\cite{veoplace}.
+ChiPBench provides end-to-end validation for whether
+placement gains survive downstream flow~\cite{chipbench}. These systems
+search parameters, optimizer components, or macro actions around the placement
+objective. CoEvoP\&R targets the differentiable objective itself and uses
+scheduled routed promotions to condition later objective proposals.
+
+\paragraph{Executable LLMs for EDA.}
+LLM-based EDA work often uses models for text, register-transfer level (RTL),
+or prediction tasks. ChipNeMo adapts foundation models for chip-design
+tasks~\cite{chipnemo}. RTLCoder generates Verilog from natural
+language~\cite{rtlcoder}. MasterRTL and VeriLoC predict pre-synthesis power,
+performance, area, or line-level design quality from
+Verilog~\cite{masterrtl,veriloc}. A second line turns LLM output into
+executable programs. FunSearch searches over Python programs for
+combinatorial mathematics~\cite{funsearch}. Eureka evolves reward functions
+from training-statistics feedback~\cite{eureka}. Evolution of Heuristics
+(EoH) co-evolves natural-language thoughts and executable heuristic
+code~\cite{eoh}. LLM-SR recovers symbolic scientific equations under
+automated evaluation~\cite{llmsr}. AlphaEvolve extends the pattern to full
+code files across mathematics and computing infrastructure~\cite{alphaevolve},
+and OpenEvolve provides a public implementation~\cite{openevolve}. These
+systems evaluate generated programs after execution. CoEvoP\&R places
+generated code inside DREAMPlace's autograd path, so validity requires finite
+objective values, finite gradients, and optimizer-compatible terms before
+routed validation.

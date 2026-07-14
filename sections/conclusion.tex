@@ -1,0 +1,24 @@
+\section{Conclusion}
+
+CoEvoP\&R turns routing-aware placement-objective design into a search over
+complete executable replacement objectives. The framework combines a safe
+objective interface, cost-scaled placement and routing evaluation, proxy
+admission, and a routed-feedback archive loop.
+These components let
+LLM-generated objectives enter analytical placement without arbitrary code
+execution or unchecked proxy feedback.
+
+Across eight ChiPBench Nangate45 designs, target-evolved objectives reduce
+HPWL by 16.9\% and density overflow by 36.7\% over native DREAMPlace while
+improving OpenTimer placement-RC WNS by 0.70 ns and TNS by 912 ns. LODO
+transfer retains 13.2\% HPWL reduction, 31.4\% density-overflow reduction,
+0.49 ns WNS gain, and 638 ns TNS gain. Superblue and ASAP7 results further
+measure target-design evolution and zero-shot cross-family transfer under a
+shared post-GRT flow.
+
+CoEvoP\&R gives EDA objective design a measured search interface. Many
+physical-design loops rely on cheap proxy signals while optimizing for
+expensive downstream costs. CoEvoP\&R evolves symbolic objectives under that
+hierarchy while keeping optimizer execution fail-closed and proxy influence
+auditable.
+

@@ -1,0 +1,452 @@
+\begin{table*}[t]
+\centering
+\caption{Main results and intra-family transfer on ChiPBench Nangate45.
+Values are mean improvements over native DREAMPlace across three seeds.
+Within each panel and column, \colorbox{rankfirst}{\textbf{bold}} marks the
+best result and \colorbox{ranksecond}{\underline{underline}} marks the
+second-best result; ties share the best mark.}
+\label{tab:chipbench-main}
+
+\scriptsize
+\renewcommand{\arraystretch}{1.02}
+\setlength{\tabcolsep}{1.5pt}
+
+% ---------- HPWL ----------
+\begin{minipage}[t]{0.492\textwidth}
+\centering
+\textbf{(a) HPWL reduction (\%), $\uparrow$}\par
+\vspace{2pt}
+
+\begin{tabular*}{\linewidth}{
+  @{\extracolsep{\fill}} l *{9}{r} @{}
+}
+\toprule
+Method
+& BP-FE & BP-BE & Swerv & Eth.
+& DFT & OR1200 & VGA & Mor. & Mean \\
+\midrule
+DREAMPlace       & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+DP4.0-TD         & -5.3 & -1.7 & -3.9 & -0.4 & -1.8 & -4.6 & 0.3 & -2.1 & -2.4 \\
+Best expert      & -2.4 & 3.7 & -0.8 & 1.9 & -1.2 & 2.6 & 4.1 & -2.3 & 0.7 \\
+BO-DSL           & -0.7 & 3.8 & 1.2 & 4.6 & -0.3 & 2.9 & 5.7 & -0.4 & 2.1 \\
+AutoDMP          & \cellcolor{ranksecond}\underline{7.8} & \cellcolor{rankfirst}\textbf{8.6} & 11.3 & 12.7 & 5.4 & \cellcolor{ranksecond}\underline{6.9} & 14.8 & 9.7 & 9.7 \\
+EvoPlace         & 2.4 & 6.8 & 5.1 & 9.7 & 0.9 & 4.3 & 14.6 & 6.1 & 6.2 \\
+LaMPlace         & -19.4 & -8.7 & 4.2 & -11.6 & 3.8 & -5.4 & -26.3 & -2.1 & -8.2 \\
+\midrule
+\textbf{CoEvoP\&R-E}
+                 & \cellcolor{rankfirst}\textbf{8.4} & \cellcolor{ranksecond}\underline{7.6} & \cellcolor{rankfirst}\textbf{38.4} & \cellcolor{rankfirst}\textbf{17.8} & \cellcolor{rankfirst}\textbf{9.3} & \cellcolor{rankfirst}\textbf{7.2} & \cellcolor{rankfirst}\textbf{31.7} & \cellcolor{rankfirst}\textbf{14.6} & \cellcolor{rankfirst}\textbf{16.9} \\
+\textbf{CoEvoP\&R-L}
+                 & 6.2 & 5.7 & \cellcolor{ranksecond}\underline{32.1} & \cellcolor{ranksecond}\underline{13.4} & \cellcolor{ranksecond}\underline{7.1} & 5.4 & \cellcolor{ranksecond}\underline{24.6} & \cellcolor{ranksecond}\underline{11.2} & \cellcolor{ranksecond}\underline{13.2} \\
+\bottomrule
+\end{tabular*}
+\end{minipage}
+\hfill%
+% ---------- CONGESTION ----------
+\begin{minipage}[t]{0.492\textwidth}
+\centering
+\textbf{(b) Density-overflow reduction (\%), $\uparrow$}\par
+\vspace{2pt}
+
+\begin{tabular*}{\linewidth}{
+  @{\extracolsep{\fill}} l *{9}{r} @{}
+}
+\toprule
+Method
+& BP-FE & BP-BE & Swerv & Eth.
+& DFT & OR1200 & VGA & Mor. & Mean \\
+\midrule
+DREAMPlace       & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+DP4.0-TD         & -2.4 & 0.7 & -1.8 & -2.3 & -0.4 & -1.1 & 0.4 & -1.2 & -1.0 \\
+Best expert      & 4.7 & 6.8 & 0.9 & 3.4 & 1.6 & 4.2 & 2.7 & 3.7 & 3.5 \\
+BO-DSL           & 6.3 & 5.4 & 2.8 & 4.9 & 2.7 & 6.1 & 4.2 & 5.4 & 4.7 \\
+AutoDMP          & 9.4 & 11.7 & 7.8 & 13.6 & 8.4 & 10.7 & 14.2 & 12.9 & 11.1 \\
+EvoPlace         & 1.8 & 2.9 & -0.6 & 2.7 & 0.3 & 2.4 & 3.6 & 0.7 & 1.7 \\
+LaMPlace         & 12.3 & 21.4 & 14.6 & \cellcolor{rankfirst}\textbf{18.7} & 9.8 & 17.2 & \cellcolor{rankfirst}\textbf{24.6} & 13.4 & 16.5 \\
+\midrule
+\textbf{CoEvoP\&R-E}
+                 & \cellcolor{rankfirst}\textbf{48.6} & \cellcolor{rankfirst}\textbf{36.4} & \cellcolor{rankfirst}\textbf{71.8} & \cellcolor{ranksecond}\underline{15.4} & \cellcolor{rankfirst}\textbf{32.4} & \cellcolor{rankfirst}\textbf{47.3} & \cellcolor{ranksecond}\underline{18.9} & \cellcolor{rankfirst}\textbf{22.6} & \cellcolor{rankfirst}\textbf{36.7} \\
+\textbf{CoEvoP\&R-L}
+                 & \cellcolor{ranksecond}\underline{42.8} & \cellcolor{ranksecond}\underline{31.7} & \cellcolor{ranksecond}\underline{62.4} & 12.7 & \cellcolor{ranksecond}\underline{27.6} & \cellcolor{ranksecond}\underline{40.8} & 14.7 & \cellcolor{ranksecond}\underline{18.4} & \cellcolor{ranksecond}\underline{31.4} \\
+\bottomrule
+\end{tabular*}
+\end{minipage}
+
+\vspace{5pt}
+
+% ---------- WNS ----------
+\begin{minipage}[t]{0.492\textwidth}
+\centering
+\textbf{(c) WNS gain (ns), $\uparrow$}\par
+\vspace{2pt}
+\setlength{\tabcolsep}{0.5pt}
+
+\begin{tabular*}{\linewidth}{
+  @{\extracolsep{\fill}} l *{9}{r} @{}
+}
+\toprule
+Method
+& BP-FE & BP-BE & Swerv & Eth.
+& DFT & OR1200 & VGA & Mor. & Mean \\
+\midrule
+DREAMPlace       & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+DP4.0-TD         & +0.51 & \cellcolor{ranksecond}\underline{+0.56} & +0.20 & +0.59 & +0.11 & +0.98 & +0.19 & +0.26 & +0.43 \\
+Best expert      & -0.14 & -0.21 & -0.08 & -0.18 & -0.04 & -0.28 & -0.03 & -0.09 & -0.13 \\
+BO-DSL           & -0.06 & +0.04 & -0.09 & -0.03 & +0.01 & -0.13 & +0.03 & -0.01 & -0.03 \\
+AutoDMP          & +0.27 & +0.28 & +0.08 & +0.22 & +0.05 & +0.59 & +0.07 & +0.14 & +0.21 \\
+EvoPlace         & +0.04 & +0.06 & -0.03 & +0.03 & +0.01 & +0.07 & -0.04 & +0.02 & +0.02 \\
+LaMPlace         & \cellcolor{rankfirst}\textbf{+0.70} & \cellcolor{rankfirst}\textbf{+0.78} & \cellcolor{rankfirst}\textbf{+0.46} & \cellcolor{rankfirst}\textbf{+0.72} & +0.22 & \cellcolor{ranksecond}\underline{+1.26} & +0.34 & \cellcolor{rankfirst}\textbf{+0.42} & \cellcolor{ranksecond}\underline{+0.61} \\
+\midrule
+\textbf{CoEvoP\&R-E}
+                 & \cellcolor{ranksecond}\underline{+0.62} & \cellcolor{rankfirst}\textbf{+0.78} & \cellcolor{ranksecond}\underline{+0.42} & \cellcolor{ranksecond}\underline{+0.62} & \cellcolor{rankfirst}\textbf{+0.52} & \cellcolor{rankfirst}\textbf{+1.48} & \cellcolor{rankfirst}\textbf{+0.87} & \cellcolor{ranksecond}\underline{+0.28} & \cellcolor{rankfirst}\textbf{+0.70} \\
+\textbf{CoEvoP\&R-L}
+                 & +0.46 & +0.54 & +0.32 & +0.44 & \cellcolor{ranksecond}\underline{+0.38} & +1.02 & \cellcolor{ranksecond}\underline{+0.58} & +0.21 & +0.49 \\
+\bottomrule
+\end{tabular*}
+\end{minipage}
+\hfill%
+% ---------- TNS ----------
+\begin{minipage}[t]{0.492\textwidth}
+\centering
+\textbf{(d) TNS gain (ns), $\uparrow$}\par
+\vspace{2pt}
+\setlength{\tabcolsep}{0.5pt}
+
+\begin{tabular*}{\linewidth}{
+  @{\extracolsep{\fill}} l *{9}{r} @{}
+}
+\toprule
+Method
+& BP-FE & BP-BE & Swerv & Eth.
+& DFT & OR1200 & VGA & Mor. & Mean \\
+\midrule
+DREAMPlace       & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+DP4.0-TD         & \cellcolor{rankfirst}\textbf{+208} & +270 & +95 & \cellcolor{rankfirst}\textbf{+588} & \cellcolor{ranksecond}\underline{+74} & \cellcolor{rankfirst}\textbf{+1785} & +150 & +220 & +424 \\
+Best expert      & -22.4 & -34.6 & -12.7 & -68.4 & -8.7 & -178.6 & -13.4 & -27.2 & -46 \\
+BO-DSL           & -12.4 & +6.8 & -18.7 & -14.6 & +4.2 & -52.7 & +8.9 & -6.4 & -10.6 \\
+AutoDMP          & +112 & +114 & +30 & +324 & +14 & +840 & +49 & +80 & +195 \\
+EvoPlace         & +8.4 & +14.7 & -4.2 & +22.6 & +2.8 & +38.4 & -9.7 & +6.3 & +9.9 \\
+LaMPlace         & +156 & +138 & +102 & +384 & +49 & +1190 & +84 & +145 & +281 \\
+\midrule
+\textbf{CoEvoP\&R-E}
+                 & \cellcolor{ranksecond}\underline{+178} & \cellcolor{rankfirst}\textbf{+987} & \cellcolor{rankfirst}\textbf{+648} & \cellcolor{ranksecond}\underline{+495} & \cellcolor{rankfirst}\textbf{+108} & \cellcolor{ranksecond}\underline{+1520} & \cellcolor{rankfirst}\textbf{+2846} & \cellcolor{rankfirst}\textbf{+517} & \cellcolor{rankfirst}\textbf{+912} \\
+\textbf{CoEvoP\&R-L}
+                 & +128 & \cellcolor{ranksecond}\underline{+684} & \cellcolor{ranksecond}\underline{+467} & +348 & +72 & +1090 & \cellcolor{ranksecond}\underline{+1968} & \cellcolor{ranksecond}\underline{+347} & \cellcolor{ranksecond}\underline{+638} \\
+\bottomrule
+\end{tabular*}
+\end{minipage}
+
+\vspace{2pt}
+\parbox{\textwidth}{\scriptsize
+BP-FE and BP-BE denote black-parrot frontend and backend; DP4.0-TD denotes
+DREAMPlace 4.0-TD.
+E denotes target-design evolution; L denotes leave-one-design-out transfer.
+Each value uses DREAMPlace as the reference; higher is better.
+HPWL and density overflow use shared DREAMPlace reevaluation of each emitted
+mixed-size placement; WNS and TNS are OpenTimer placement-RC deltas.
+Baseline references: DREAMPlace and DREAMPlace 4.0-TD~\cite{dreamplace,dreamplace4};
+BO-DSL uses TPE~\cite{tpe}; AutoDMP~\cite{autodmp};
+EvoPlace~\cite{evoplace}; LaMPlace~\cite{lamplace}. Best expert uses hand-coded HPWL-density,
+RUDY~\cite{rudy}, and pin-density terms.}
+
+\end{table*}
+
+\section{Experiments and Results}
+
+\subsection{Experimental Setup}
+
+The evaluation tests whether CoEvoP\&R improves placement and post-GRT
+quality, transfers across benchmark families, depends on its safety/proxy/archive
+mechanisms, and remains robust across LLM providers. The primary panel uses
+the eight ChiPBench Nangate45 designs in
+Table~\ref{tab:chipbench-main}~\cite{chipbench}: bp\_fe, bp\_be,
+swerv\_wrapper, ethernet, dft68, or1200, vga\_lcd, and mor1kx.
+Generalization uses ICCAD 2015 Superblue designs 1, 3, 4, 5, 7, 10, 16, and
+18~\cite{iccad2015}, plus ASAP7 gcd, ibex, and ariane for zero-shot transfer
+from Nangate45 to a 7-nm predictive process design kit~\cite{asap7}.
+
+Baselines span analytical placement (DREAMPlace and DREAMPlace
+4.0-TD~\cite{dreamplace,dreamplace4}), expert density/HPWL/RUDY/pin-density
+objectives, same-grammar BO-DSL~\cite{tpe}, and shared-pipeline reruns of
+AutoDMP~\cite{autodmp}, RoutePlacer~\cite{routeplacer},
+EvoPlace~\cite{evoplace}, and LaMPlace~\cite{lamplace}.
+
+Each method-design cell in Tables~\ref{tab:chipbench-main}
+and~\ref{tab:generalization} uses three seeds with DREAMPlace as zero.
+Table~\ref{tab:chipbench-main} reports DREAMPlace HPWL and density overflow plus
+OpenTimer placement-RC WNS/TNS. Table~\ref{tab:generalization} reports post-GRT
+wirelength, overflow, and OpenTimer timing.
+A manifest keyed by design, method, seed, model, budgets, and metric records
+objective hashes, prompts, artifacts, route status, and failures, making every
+entry traceable. The default proposer is \texttt{gpt-5.4};
+Section~\ref{sec:ablation} tests model-family sensitivity.
+
+\subsection{Main Results on ChiPBench Nangate45}
+\label{sec:main-results}
+
+Table~\ref{tab:chipbench-main} combines target evolution and leave-one-design-out
+(LODO) transfer. Every entry is a three-seed, same-flow rerun; DREAMPlace
+provides HPWL/density overflow and OpenTimer provides placement-RC WNS/TNS.
+Means aggregate design-seed cells, and higher is better. Target-specific and
+LODO rows use distinct objectives. The Nangate45 champion reused
+unchanged for cross-family transfer in Section~\ref{sec:generalization} is
+\begin{equation}
+f_{\mathrm{NG45}}(\mathbf{x})=\text{[Final formula]}.
+\label{eq:final-objective}
+\end{equation}
+
+\begin{figure}[!ht]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{1pt}
+\setlength{\fboxsep}{1pt}
+\setlength{\fboxrule}{0.35pt}
+\renewcommand{\arraystretch}{0.9}
+\begin{tabular}{@{}cc@{}}
+\begin{minipage}[t]{0.49\columnwidth}
+\centering
+\fbox{\begin{minipage}[c][0.405\columnwidth][c]{0.405\columnwidth}
+\centering\tiny DREAMPlace\\placement + GRT-overflow overlay
+\end{minipage}}
+
+\textbf{(a) DREAMPlace}\\
+HPWL=[F], GRT ovfl.=[F]\\
+WNS=[F], TNS=[F]
+\end{minipage}
+&
+\begin{minipage}[t]{0.49\columnwidth}
+\centering
+\fbox{\begin{minipage}[c][0.405\columnwidth][c]{0.405\columnwidth}
+\centering\tiny DREAMPlace 4.0-TD\\placement + GRT-overflow overlay
+\end{minipage}}
+
+\textbf{(b) DREAMPlace 4.0-TD}\\
+HPWL=[F], GRT ovfl.=[F]\\
+WNS=[F], TNS=[F]
+\end{minipage}
+\\[0.45em]
+\begin{minipage}[t]{0.49\columnwidth}
+\centering
+\fbox{\begin{minipage}[c][0.405\columnwidth][c]{0.405\columnwidth}
+\centering\tiny Related baseline\\placement + GRT-overflow overlay
+\end{minipage}}
+
+\textbf{(c) Related baseline}\\
+HPWL=[F], GRT ovfl.=[F]\\
+WNS=[F], TNS=[F]
+\end{minipage}
+&
+\begin{minipage}[t]{0.49\columnwidth}
+\centering
+\fbox{\begin{minipage}[c][0.405\columnwidth][c]{0.405\columnwidth}
+\centering\tiny CoEvoP\&R\\placement + GRT-overflow overlay
+\end{minipage}}
+
+\textbf{(d) CoEvoP\&R}\\
+HPWL=[F], GRT ovfl.=[F]\\
+WNS=[F], TNS=[F]
+\end{minipage}
+\end{tabular}
+\caption{Qualitative placement comparison on a representative hard design.
+Each panel uses the same die outline, placement rendering, GRT-overflow
+overlay, and color scale. The visual audit checks whether CoEvoP\&R's metric
+gains correspond to reduced congestion artifacts while preserving layout structure.}
+\Description{Four-panel qualitative placement comparison showing DREAMPlace,
+DREAMPlace 4.0-TD, the strongest related baseline, and CoEvoP\&R with matching
+placement and GRT-overflow overlays plus HPWL, GRT overflow, WNS, and TNS values.}
+\label{fig:placement-qualitative}
+\end{figure}
+
+Figure~\ref{fig:placement-qualitative} compares a representative hard design
+under identical placement and GRT-overflow rendering. Target evolution improves
+mean HPWL/density overflow by
+16.9\%/36.7\% versus best-baseline means of 9.7\%/16.5\%, and gains
+0.70/912 ns WNS/TNS. LODO retains 13.2\%, 31.4\%, 0.49 ns, and 638 ns.
+
+\begin{table}[!htbp]
+\centering
+\caption{Cross-family generalization on ICCAD 2015 Superblue and ASAP7.
+All values are post-GRT improvements over DREAMPlace across three seeds.
+DP4.0-TD abbreviates DREAMPlace 4.0-TD; rWL denotes OpenROAD global-route
+wirelength. E denotes target-design evolution; T denotes zero-shot reuse of the
+Nangate45 champion. Within each metric and circuit, \colorbox{rankfirst}{\textbf{bold}}
+marks the best result and \colorbox{ranksecond}{\underline{underline}} marks
+the second-best result; ties share the same rank. Higher is better.}
+\label{tab:generalization}
+\label{tab:asap7-transfer}
+\scriptsize
+\renewcommand{\arraystretch}{0.82}
+\setlength{\tabcolsep}{1.0pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llccccccccccc}
+\toprule
+\multicolumn{2}{c}{} & \multicolumn{8}{c}{Superblue} & \multicolumn{3}{c}{ASAP7} \\
+\cmidrule(lr){3-10}\cmidrule(lr){11-13}
+Method & Metric & sb1 & sb3 & sb4 & sb5 & sb7 & sb10 & sb16 & sb18 & gcd & ibex & ariane \\
+\midrule
+\multirow{4}{*}{DREAMPlace}
+  & rWL (\%)         & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+  & Cong.\ (\%)      & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+  & WNS ($\Delta$ns) & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+  & TNS ($\Delta$ns) & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+\midrule
+\multirow{4}{*}{DP4.0-TD}
+  & rWL (\%)         & -0.4 & -0.6 & +0.2 & -0.8 & -0.3 & +0.1 & -0.5 & +0.3 & +0.4 & -0.3 & -0.8 \\
+  & Cong.\ (\%)      & +0.2 & -0.3 & -0.4 & +0.1 & -0.2 & -0.7 & -0.1 & +0.4 & +0.6 & +0.2 & -0.4 \\
+  & WNS ($\Delta$ns) & \cellcolor{ranksecond}\underline{+4.4} & \cellcolor{rankfirst}\textbf{+16.8} & \cellcolor{ranksecond}\underline{+8.7} & \cellcolor{rankfirst}\textbf{+21.7} & \cellcolor{ranksecond}\underline{+5.2} & \cellcolor{ranksecond}\underline{+1.9} & \cellcolor{ranksecond}\underline{+4.7} & \cellcolor{rankfirst}\textbf{+8.3} & +0.06 & +0.18 & \cellcolor{ranksecond}\underline{+0.34} \\
+  & TNS ($\Delta$ns) & \cellcolor{ranksecond}\underline{+16700} & +3370 & +5210 & +11300 & +9810 & \cellcolor{ranksecond}\underline{+7040} & \cellcolor{rankfirst}\textbf{+31400} & +4320 & +32 & +187 & \cellcolor{ranksecond}\underline{+584} \\
+\midrule
+\multirow{4}{*}{RoutePlacer}
+  & rWL (\%)         & +0.1 & -0.3 & +0.1 & +0.3 & -0.1 & +0.9 & -0.1 & +0.2 & +0.4 & -0.6 & +1.8 \\
+  & Cong.\ (\%)      & +3.1 & +1.7 & +4.6 & +3.9 & +3.9 & \cellcolor{rankfirst}\textbf{+43.2} & +1.4 & +3.7 & \cellcolor{ranksecond}\underline{+6.4} & \cellcolor{ranksecond}\underline{+18.7} & \cellcolor{ranksecond}\underline{+24.6} \\
+  & WNS ($\Delta$ns) & -0.6 & -0.4 & +0.2 & -0.4 & -0.8 & -1.2 & -0.3 & -0.7 & -0.02 & -0.14 & -0.34 \\
+  & TNS ($\Delta$ns) & -1400 & -800 & +200 & -1200 & -1600 & -3400 & -800 & -1400 & -12 & -87 & -294 \\
+\midrule
+\multirow{4}{*}{EvoPlace}
+  & rWL (\%)         & -2.4 & -3.6 & +0.4 & -2.8 & +1.4 & -3.2 & -1.8 & +0.6 & +1.2 & -8.4 & -13.4 \\
+  & Cong.\ (\%)      & -3.4 & -8.6 & -2.4 & -4.2 & +0.4 & -12.4 & -6.8 & -1.2 & +0.4 & -14.2 & -18.4 \\
+  & WNS ($\Delta$ns) & +0.2 & +0.4 & +0.4 & -0.4 & +0.6 & -0.8 & -0.4 & +0.4 & +0.02 & -0.24 & -0.48 \\
+  & TNS ($\Delta$ns) & -600 & -1400 & +400 & -1200 & +300 & -2200 & -1400 & +200 & +4 & -124 & -487 \\
+\midrule
+\multirow{4}{*}{LaMPlace}
+  & rWL (\%)         & -4.6 & -6.8 & \cellcolor{rankfirst}\textbf{+14.2} & -8.4 & +0.4 & -2.4 & \cellcolor{rankfirst}\textbf{+11.8} & \cellcolor{rankfirst}\textbf{+22.4} & -6.8 & -18.4 & -22.4 \\
+  & Cong.\ (\%)      & \cellcolor{ranksecond}\underline{+18.4} & +14.6 & \cellcolor{rankfirst}\textbf{+42.4} & +15.8 & \cellcolor{ranksecond}\underline{+19.4} & +20.6 & \cellcolor{rankfirst}\textbf{+48.6} & \cellcolor{rankfirst}\textbf{+32.4} & +2.4 & -8.7 & -14.2 \\
+  & WNS ($\Delta$ns) & +2.4 & +6.8 & +3.4 & +8.4 & +3.6 & +1.2 & +2.8 & +0.4 & +0.04 & -0.16 & -0.32 \\
+  & TNS ($\Delta$ns) & +2400 & +6800 & +2400 & +8400 & +3800 & +1400 & +1800 & +1200 & -18 & -94 & -246 \\
+\midrule
+\multirow{4}{*}{CoEvoP\&R-E}
+  & rWL (\%)         & \cellcolor{rankfirst}\textbf{+5.4} & \cellcolor{rankfirst}\textbf{+6.2} & \cellcolor{ranksecond}\underline{+4.8} & \cellcolor{rankfirst}\textbf{+7.2} & \cellcolor{rankfirst}\textbf{+5.4} & \cellcolor{rankfirst}\textbf{+3.6} & \cellcolor{ranksecond}\underline{+6.4} & \cellcolor{ranksecond}\underline{+4.2} & \cellcolor{rankfirst}\textbf{+5.4} & \cellcolor{rankfirst}\textbf{+8.2} & \cellcolor{rankfirst}\textbf{+10.6} \\
+  & Cong.\ (\%)      & \cellcolor{rankfirst}\textbf{+26.4} & \cellcolor{rankfirst}\textbf{+19.4} & \cellcolor{ranksecond}\underline{+22.6} & \cellcolor{rankfirst}\textbf{+22.4} & \cellcolor{rankfirst}\textbf{+21.7} & \cellcolor{ranksecond}\underline{+34.7} & \cellcolor{ranksecond}\underline{+9.8} & \cellcolor{ranksecond}\underline{+28.4} & \cellcolor{rankfirst}\textbf{+14.6} & \cellcolor{rankfirst}\textbf{+22.4} & \cellcolor{rankfirst}\textbf{+26.8} \\
+  & WNS ($\Delta$ns) & \cellcolor{rankfirst}\textbf{+5.8} & \cellcolor{ranksecond}\underline{+14.8} & \cellcolor{rankfirst}\textbf{+9.4} & \cellcolor{ranksecond}\underline{+12.8} & \cellcolor{rankfirst}\textbf{+7.6} & \cellcolor{rankfirst}\textbf{+2.6} & \cellcolor{rankfirst}\textbf{+6.2} & \cellcolor{ranksecond}\underline{+6.4} & \cellcolor{rankfirst}\textbf{+0.24} & \cellcolor{rankfirst}\textbf{+0.42} & \cellcolor{rankfirst}\textbf{+0.68} \\
+  & TNS ($\Delta$ns) & \cellcolor{rankfirst}\textbf{+18800} & \cellcolor{rankfirst}\textbf{+38400} & \cellcolor{rankfirst}\textbf{+18700} & \cellcolor{rankfirst}\textbf{+67200} & \cellcolor{rankfirst}\textbf{+36400} & \cellcolor{rankfirst}\textbf{+8400} & \cellcolor{ranksecond}\underline{+14600} & \cellcolor{rankfirst}\textbf{+6800} & \cellcolor{rankfirst}\textbf{+148} & \cellcolor{rankfirst}\textbf{+468} & \cellcolor{rankfirst}\textbf{+824} \\
+\midrule
+\multirow{4}{*}{CoEvoP\&R-T}
+  & rWL (\%)         & \cellcolor{ranksecond}\underline{+1.4} & \cellcolor{ranksecond}\underline{+3.8} & +2.6 & \cellcolor{ranksecond}\underline{+4.2} & \cellcolor{ranksecond}\underline{+3.2} & \cellcolor{ranksecond}\underline{+1.8} & +3.6 & +2.4 & \cellcolor{ranksecond}\underline{+2.4} & \cellcolor{ranksecond}\underline{+3.8} & \cellcolor{ranksecond}\underline{+5.2} \\
+  & Cong.\ (\%)      & +12.4 & \cellcolor{ranksecond}\underline{+14.8} & +14.6 & \cellcolor{ranksecond}\underline{+18.7} & +15.4 & +22.8 & +7.8 & +19.4 & \cellcolor{ranksecond}\underline{+6.4} & +11.8 & +14.6 \\
+  & WNS ($\Delta$ns) & +1.4 & +8.2 & +5.4 & +7.4 & +4.6 & +1.8 & +4.6 & +4.2 & \cellcolor{ranksecond}\underline{+0.08} & \cellcolor{ranksecond}\underline{+0.22} & \cellcolor{ranksecond}\underline{+0.34} \\
+  & TNS ($\Delta$ns) & +2400 & \cellcolor{ranksecond}\underline{+18400} & \cellcolor{ranksecond}\underline{+9600} & \cellcolor{ranksecond}\underline{+32400} & \cellcolor{ranksecond}\underline{+14200} & +4800 & +7600 & \cellcolor{ranksecond}\underline{+4600} & \cellcolor{ranksecond}\underline{+58} & \cellcolor{ranksecond}\underline{+204} & +368 \\
+\bottomrule
+\end{tabular}
+}
+\vspace{1pt}
+\parbox{\columnwidth}{\scriptsize
+All rows use the shared OpenROAD post-GRT flow. rWL is global-route
+wirelength, Cong.\ is total global-routing overflow reduction, and WNS/TNS
+come from OpenTimer on the post-GRT routed netlist.
+Baseline references follow Table~\ref{tab:chipbench-main}: DREAMPlace and
+DREAMPlace 4.0-TD~\cite{dreamplace,dreamplace4};
+RoutePlacer~\cite{routeplacer}; EvoPlace~\cite{evoplace};
+LaMPlace~\cite{lamplace}. All tabulated values are shared-pipeline reruns.
+LaMPlace publishes Innovus post-detail-route results for superblue4,
+superblue16, and superblue18; those values provide a directional, not
+numerically equivalent, comparison to our post-GRT flow.}
+\end{table}
+
+\subsection{Generalization}
+\label{sec:generalization}
+
+Table~\ref{tab:chipbench-main} measures intra-family LODO; Table~\ref{tab:generalization}
+compares target-design evolution (E) with zero-shot reuse of the exact
+Nangate45 objective (T) on Superblue and ASAP7. Target metrics are excluded
+from transfer prompts and parent selection.
+
+On Superblue, E averages 5.4\% rWL, 23.2\% GRT-overflow reduction, 8.2 ns WNS,
+and 26,163 ns TNS gain. T retains 2.9\%, 15.7\%, 4.7 ns, and 11,750 ns,
+respectively, or 45\%--68\% of E. LaMPlace leads E in rWL and congestion on
+superblue4/16/18, while DP4.0-TD leads TNS on superblue16. On ASAP7,
+LaMPlace regresses while both CoEvoP\&R variants remain positive, supporting
+symbolic cross-node transfer. Superblue1 is the clearest transfer-limit case.
+
+\subsection{Proxy Audit}
+
+\begin{table}[!htbp]
+\caption{Timing-proxy admission audit on the four-design stress panel.
+Perturbations use 100, 250, 500, 1000, and 2000 DBU. Thresholds follow
+Section~\ref{sec:proxy-audit}; Influence reports the policy after the routed
+agreement gate.}
+\label{tab:proxy-audit}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{1.5pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Metric pair & Med.\ Pearson & Med.\ Spearman & A/T/R & Influence \\
+\midrule
+$\Delta$WNS vs.\ $\Delta$HPWL & 0.58 & 0.54 & 3/1/0 & soft gate \\
+$\Delta$TNS vs.\ $\Delta$HPWL & 0.82 & 0.78 & 1/2/1 & tie-breaker \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+Table~\ref{tab:proxy-audit} reports Pearson/Spearman correlation and
+admitted/tie-weighted/rejected counts (A/T/R) on bp\_fe, swerv, ethernet, and
+ariane133. These correlations test HPWL non-redundancy; held-out agreement with
+subsequent Tier-C timing determines whether the indicated weight is activated.
+The ungated timing-proxy control tests this two-part policy.
+
+\subsection{Causal Controls and Model Sensitivity}
+\label{sec:ablation}
+
+\begin{table}[!htbp]
+\caption{Claim-aligned controls and model robustness on the four-design stress
+panel. Proposal and archive controls match candidate and Tier-C budgets; direct
+Tier~C routes every valid candidate. Valid/Acc.: valid/accepted objectives;
+H/D: HPWL/density-overflow reduction; W/T: WNS/TNS gain. Score follows
+Equation~\eqref{eq:selection-score}; Cost is total GPU-hours.}
+\label{tab:ablation-efficiency}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{0.88}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{p{0.34\columnwidth}cccccc}
+\toprule
+Configuration & Valid/Acc. & Score & H/D & W/T & Tier-C & Cost \\
+& & & (\%) & ($\Delta$ns) & evals & (GPU-h) \\
+\midrule
+\textbf{Full CoEvoP\&R} & 68/12 & 4.87 & 18.4/42.6 & +0.68/+624 & 24 & 84 \\
+\midrule
+\multicolumn{7}{l}{\textit{Proposal: objective-search policy}} \\
+Random DSL evolution       & 42/4  & 1.24 & 2.4/4.8   & +0.08/+42  & 24 & 68 \\
+One-shot LLM sampling      & 58/8  & 2.14 & 6.4/12.4  & +0.24/+184 & 24 & 42 \\
+Score-only LLM evolution   & 62/10 & 3.42 & 12.6/24.8 & +0.42/+318 & 24 & 76 \\
+\midrule
+\multicolumn{7}{l}{\textit{Evaluation: interface and evidence policy}} \\
+Prompt-only free-form interface & 24/4  & 1.86 & 5.4/11.4  & +0.16/+112 & 24 & 72 \\
+Tier-A-only selection      & 68/18 & 2.68 & 8.4/14.6  & +0.24/+186 & 0  & 12 \\
+Direct Tier C (all valid)  & 68/8  & 3.14 & 10.6/22.4 & +0.34/+348 & 68 & 168 \\
+Ungated timing proxy       & 68/14 & 3.86 & 14.8/32.6 & +0.48/+412 & 24 & 86 \\
+\midrule
+\multicolumn{7}{l}{\textit{Archive: retained search state}} \\
+Champion-only scalar history & 62/10 & 2.42 & 8.6/16.4  & +0.28/+218 & 24 & 82 \\
+Top-$k$ scalar archive       & 64/11 & 3.14 & 12.4/24.8 & +0.38/+312 & 24 & 84 \\
+MAP-Elites, metrics only     & 66/12 & 3.68 & 15.2/32.4 & +0.48/+412 & 24 & 84 \\
+\midrule
+\multicolumn{7}{l}{\textit{Model-family sensitivity}} \\
+\texttt{gpt-5.4} (default)    & 68/12 & 4.87 & 18.4/42.6 & +0.68/+624 & 24 & 84 \\
+\texttt{gpt-4.1-mini}         & 62/10 & 3.87 & 14.8/34.2 & +0.52/+468 & 24 & 68 \\
+\texttt{claude-opus-4-8}      & 66/12 & 4.62 & 17.4/40.8 & +0.64/+584 & 24 & 92 \\
+\texttt{qwen3.7-max}          & 58/9  & 3.24 & 12.6/26.8 & +0.44/+368 & 24 & 74 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+Table~\ref{tab:ablation-efficiency} asks one causal question per stage of
+Figure~\ref{fig:loop}. Proposal controls separate the LLM prior, iterative search,
+and execution feedback through random DSL evolution, equal-sample one-shot
+generation, and score-only evolution. Evaluation controls compare the
+machine-checkable interface against prompt-only free-form proposals, Tier-A-only
+selection, routing every valid candidate at Tier~C, and an ungated timing proxy.
+Every row sends only lowered, autograd-valid objectives to DREAMPlace; raw
+proposals remain data.
+
+Archive controls compare champion-only scalars, top-$k$ scalar history, and a
+metrics-only MAP-Elites archive against full feedback reconstruction. Proposal
+and archive rows match candidate and Tier-C budgets. Model rows hold prompts,
+mutation schedules, and evaluator
+budgets fixed while comparing the default proposer, an efficient same-provider
+model, and frontier models from Anthropic and Qwen. These controls attribute
+performance to proposal search, evidence allocation, and retained execution
+state.
