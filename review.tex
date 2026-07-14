@@ -1,0 +1,1237 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\setlength{\emergencystretch}{2em}
+
+\title{Review Notes for CoEvoP\&R}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\noindent\textbf{Organization.} Each manuscript section is reviewed in its own
+part. Comments under one part apply only to that manuscript section unless a
+cross-section consistency issue is stated explicitly.
+
+\tableofcontents
+\clearpage
+
+\part{Abstract Review}
+
+\section{Overall Assessment}
+
+The abstract has a strong overall structure: it moves from the problem, to the
+limitations of prior work, to the proposed method, its safety and evaluation
+mechanisms, quantitative results, and the final deployable artifact. The
+central novelty---searching the differentiable placement objective itself---is
+clear and compelling. The length and overall progression are also appropriate.
+There are no serious grammatical problems, but the abstract would benefit from
+several stylistic clarifications and a few substantive checks before it is
+finalized.
+
+\section{Wording and Clarity Comments}
+
+\begin{enumerate}
+  \item ``Fixed expert terms'' would read more naturally as ``fixed,
+  expert-designed terms.''
+
+  \item ``Scheduled routed promotions condition later proposals'' is accurate
+  but difficult to understand without first reading the Method section. A
+  plainer formulation, such as ``results from scheduled routing evaluations
+  inform subsequent proposals,'' would be clearer.
+
+  \item ``Pass a restricted objective interface'' is awkward. Candidates pass
+  validation checks imposed by the restricted interface; they do not literally
+  pass the interface itself.
+
+  \item ``Gives cheap timing proxies selection influence'' is grammatically
+  possible but dense. It would be clearer to say that the audit ``allows
+  inexpensive timing proxies to influence selection.''
+
+  \item The evaluation list is not parallel: ``ChiPBench Nangate45, ICCAD 2015
+  Superblue, and ASAP7 cross-node transfer'' mixes benchmarks, design families,
+  technology nodes, and an experiment type. A clearer construction is:
+  ``We evaluate CoEvoP\&R on the ChiPBench Nangate45 and ICCAD 2015 Superblue
+  benchmarks and study cross-node transfer to ASAP7.'' This wording should be
+  checked against the exact experimental setup.
+
+  \item ``Plugs directly into DREAMPlace'' may imply that no integration layer
+  is required, whereas the Method describes restricted lowering into an
+  \texttt{ObjectiveSpec}. ``Executes within DREAMPlace through the restricted
+  objective interface'' may be more precise.
+
+  \item The abstract contains several specialized phrases in quick succession,
+  including ``scheduled routed promotions,'' ``term-compatibility rules,'' and
+  ``perturbation-based proxy audit.'' The proxy audit is worth retaining if it
+  is a principal contribution, but these mechanisms should be described as
+  intuitively as possible in the abstract.
+\end{enumerate}
+
+\section{Substantive Concerns}
+
+\begin{enumerate}
+  \item \textbf{The reported evidence does not fully match the opening
+  motivation.} The abstract motivates the work using routed wirelength,
+  routing congestion, and post-route timing, but reports improvements only in
+  HPWL, density overflow, and placement-RC timing. A reviewer may immediately
+  ask whether routing feedback improves routed outcomes. If a strong post-GRT
+  result is available, at least one routed-quality result should be reported in
+  the abstract.
+
+  \item \textbf{The scope of the numerical claims is ambiguous.} It is unclear
+  whether the reported 16.9\%, 36.7\%, 0.70~ns, and 912~ns improvements are
+  averages over designs, seeds, or both. In the current sentence, ``on average''
+  appears to modify only HPWL and density overflow. The scope of every number
+  should be made explicit.
+
+  \item \textbf{The direction of the TNS result should be explicit.} If TNS is
+  stored as a negative quantity, ``improving TNS by 912~ns'' can be difficult
+  to interpret. Depending on the metric convention, ``reducing TNS magnitude
+  by 912~ns'' or another directionally explicit description may be better.
+
+  \item \textbf{The opening correlation claim may be too broad.} The phrase
+  ``correlate poorly with routed wirelength, routing congestion, and timing''
+  appears to make one general claim about all three metric categories. Unless
+  the cited evidence demonstrates weak correlation for every listed metric, a
+  more defensible formulation would be ``do not consistently predict'' or
+  ``can correlate poorly with.''
+
+  \item \textbf{The benchmark terminology must be exact.} The roles of
+  ChiPBench, Nangate45, Superblue, and ASAP7 should be described consistently
+  as benchmark suites, design families, technology platforms, or transfer
+  settings, as appropriate.
+
+  \item \textbf{The central novelty should remain dominant.} The strongest
+  distinction is that prior work tunes parameters, adds fixed terms, or uses
+  learned surrogates, whereas CoEvoP\&R searches the complete differentiable
+  objective program. This should remain the clearest and most memorable claim
+  in the abstract.
+\end{enumerate}
+
+The benchmark wording, numerical scope, and routed-quality claim should be
+verified against the Experiments and Results section before the abstract is
+finalized. These points have not yet been validated because the present review
+stops at the end of the Method section.
+
+\section{Proposed Revision}
+
+The following revision improves the wording while preserving the technical
+claims currently made in the manuscript. The numerical and benchmark language
+should still be checked against the experiments, and a routed-quality result
+should be added if available.
+
+\begin{quote}
+Analytical placers typically optimize half-perimeter wirelength (HPWL) and
+density, although recent post-route benchmarks show that these proxies can
+correlate poorly with routed wirelength, routing congestion, and timing.
+Existing routing-aware placers address this mismatch using fixed,
+expert-designed terms or learned black-box surrogates, while leaving the form
+of the differentiable objective unchanged. CoEvoP\&R instead searches over
+complete replacement objectives. A large language model (LLM) proposes
+readable symbolic objective programs, DREAMPlace evaluates their behavior
+within the optimization loop, and results from scheduled routing evaluations
+inform subsequent proposals. Each candidate passes a restricted objective
+interface, term-compatibility checks, autograd validation, and a cost-scaled
+placement, timing, and routing evaluation cascade. A perturbation-based audit
+allows inexpensive timing proxies to influence selection only when they
+provide information beyond HPWL and agree with downstream timing. We evaluate
+CoEvoP\&R on the ChiPBench Nangate45 and ICCAD 2015 Superblue benchmarks and
+study cross-node transfer to ASAP7. On the primary ChiPBench benchmark,
+CoEvoP\&R reduces HPWL by 16.9\% and density overflow by 36.7\% on average
+relative to native DREAMPlace, while improving OpenTimer placement-RC WNS by
+0.70~ns and TNS by 912~ns. Each search produces a compact symbolic objective
+that can be inspected, edited, and executed within DREAMPlace through the
+restricted objective interface.
+\end{quote}
+
+\clearpage
+\part{Introduction Review}
+
+\section{Review Scope}
+
+The perspectives below are lenses used to evaluate the Introduction; they are
+not all topics that must be added to the Introduction itself. The Introduction
+should primarily establish the problem, summarize the relevant limitations of
+prior work, define the research gap, introduce CoEvoP\&R, state its
+contributions, and summarize its most important evidence. Detailed safety,
+reproducibility, archive, and evaluation procedures belong in the Method and
+Experiments sections.
+
+This review intentionally ignores the keyword list and reference formatting.
+
+\section{Overall Assessment}
+
+The Introduction has a sound narrative arc: proxy mismatch, limitations of
+existing routing-aware approaches, objective-program search, contributions,
+and results. The main idea is understandable without first reading the Method
+section. It does not require restructuring from scratch, but several claims
+should be made more precise and the reported evidence should better match the
+routing-centered motivation.
+
+\section{EDA and Technical-Accuracy Perspective}
+
+\begin{enumerate}
+  \item Calling both HPWL and density ``proxies'' is debatable. HPWL is a
+  wirelength proxy, whereas density is primarily a feasibility or overlap
+  control objective. A more precise opening would be:
+
+  \begin{quote}
+  Modern analytical placers make global placement tractable by minimizing a
+  smooth wirelength surrogate together with a density objective.
+  \end{quote}
+
+  \item The statement that ChiPBench shows poor correlation with routed
+  wirelength, congestion, WNS, TNS, and DRC count should be checked carefully
+  against what that work demonstrates for each metric. If the evidence is not
+  uniform across all metrics, ``does not consistently predict'' or ``can
+  correlate poorly with'' is safer than a categorical claim.
+
+  \item ``The analytical placer optimizes one target while the completed flow
+  depends on another'' is memorable but overly singular. The completed flow
+  depends on several downstream objectives. A more precise alternative is:
+
+  \begin{quote}
+  Consequently, the placer optimizes objectives that do not fully represent
+  the quality metrics of the completed physical-design flow.
+  \end{quote}
+
+  \item The two-part classification of routing-aware placement is useful, but
+  it should not imply that every method fits perfectly into either a
+  hand-designed symbolic term or a learned surrogate. The wording should
+  present these as two important lines of work rather than an exhaustive
+  taxonomy.
+
+  \item ``Require expert redesign for each technology or benchmark family'' is
+  too absolute. Hand-designed objectives can transfer, although they may
+  require expert retuning or redesign. The latter formulation is easier to
+  defend.
+
+  \item ``Black-box models that engineers cannot inspect or edit'' is also too
+  strong. Engineers can technically inspect architectures and modify learned
+  models. The intended contrast is interpretability and direct editability:
+
+  \begin{quote}
+  Learned surrogates provide downstream awareness but are generally less
+  interpretable and directly editable than compact symbolic objectives.
+  \end{quote}
+\end{enumerate}
+
+\section{LLM and Program-Search Perspective}
+
+\begin{enumerate}
+  \item The central novelty should be stated as precisely as possible:
+  CoEvoP\&R searches the functional form of the differentiable objective while
+  keeping the placement optimizer fixed and evaluating each candidate within
+  the optimizer's gradient path. This is stronger and clearer than merely
+  saying that an LLM is used for placement.
+
+  \item ``Complete symbolic replacement objectives'' may sound like
+  unrestricted program synthesis. The Method later shows that programs use a
+  restricted grammar, an allowed observable library, and required wirelength
+  and density anchors. The Introduction should establish this boundary early,
+  for example:
+
+  \begin{quote}
+  CoEvoP\&R searches compositions and nonlinear interactions among a
+  restricted set of differentiable placement observables.
+  \end{quote}
+
+  \item ``This embedding makes optimizer compatibility part of the search
+  space'' is imprecise. Compatibility is a validity requirement or evaluation
+  constraint, not necessarily a dimension of the search space. A better
+  formulation is:
+
+  \begin{quote}
+  Embedding candidates in the optimization loop makes optimizer compatibility
+  an explicit validity requirement.
+  \end{quote}
+
+  \item The Introduction should explain briefly why an LLM is suitable for
+  this task: the search space contains readable program structures and
+  nonlinear compositions, while automatic EDA measurements provide concrete
+  revision feedback.
+
+  \item The term ``co-evolving'' should be explained. At present, the objective
+  programs evolve while routing measurements provide feedback; routing itself
+  does not appear to form a second evolving population. One sentence should
+  clarify what the name CoEvoP\&R is intended to denote.
+\end{enumerate}
+
+\section{Conference-Reviewer and Adversarial Perspective}
+
+\begin{enumerate}
+  \item The distinction from prior LLM-based placement work must remain
+  explicit. Prior work searches parameters, optimizer components, or placement
+  actions; CoEvoP\&R searches the differentiable objective program itself.
+
+  \item The Introduction should avoid winning the novelty argument by
+  overstating weaknesses of prior work. The phrases most likely to attract
+  reviewer objections are ``cannot inspect or edit,'' ``require expert
+  redesign,'' and any implication that all previous differentiable objectives
+  are entirely fixed or unsearchable.
+
+  \item The claim that the method improves ``post-GRT quality'' needs direct
+  support in the Introduction. The reported summary currently includes HPWL,
+  density overflow, and placement-RC timing, but no routed metric. Since
+  routing feedback appears in both the motivation and the paper title, at least
+  one post-GRT wirelength, congestion, overflow, or timing result should be
+  reported if available.
+
+  \item The Introduction should distinguish placement-RC timing from
+  post-route timing. A reviewer may object if the former is used as evidence
+  for a broad post-route timing claim.
+
+  \item The contribution list must contain claims that are individually
+  verifiable later in the paper. In particular, ``discovers readable formulas
+  that improve placement and post-GRT quality'' should correspond to explicit
+  downstream experiments.
+\end{enumerate}
+
+\section{Experimental-Methodology Perspective}
+
+\begin{enumerate}
+  \item The final numerical sentence should state what is averaged: designs,
+  seeds, or both. It should also clarify whether ``on average'' applies to the
+  WNS and TNS improvements as well as HPWL and density overflow.
+
+  \item The direction of the 912~ns TNS result should be explicit. If TNS is
+  represented as a negative quantity, consider reporting a reduction in TNS
+  magnitude or otherwise stating the sign convention.
+
+  \item The baseline wording should be precise. ``Relative to native
+  DREAMPlace'' is clearer than ``reduces DREAMPlace HPWL,'' because HPWL is the
+  metric and DREAMPlace is the baseline tool or objective.
+
+  \item The result summary should reflect the principal scientific claim. If
+  routing-aware objective evolution is the key contribution, a routed outcome
+  should accompany the placement metrics.
+
+  \item The Introduction need not describe the full evaluation cascade, but it
+  should avoid language that implies final-panel information influences the
+  search if the Method explicitly keeps search and final evidence separate.
+\end{enumerate}
+
+\section{General-Reader and Language Perspective}
+
+\begin{enumerate}
+  \item The second paragraph contains three individual prior-work result claims
+  for LaMPlace, GOALPlace, and RoutePlacer. These establish that prior methods
+  are effective, but they interrupt the Introduction's argument and may fit
+  better in Related Work. A compact alternative is:
+
+  \begin{quote}
+  Learned approaches such as LaMPlace, GOALPlace, and RoutePlacer have
+  demonstrated substantial timing and routability improvements.
+  \end{quote}
+
+  \item ``Later congestion and density controls build on the same idea'' is
+  vague. It should either identify the relevant development more concretely or
+  be removed.
+
+  \item The third paragraph introduces too many mechanisms in rapid succession:
+  program evolution, gradient-path execution, static admission, autograd
+  checks, runtime guards, scheduled routing promotion, and proxy auditing.
+  Preserve the objective-search distinction and defer lower-level mechanisms
+  to the Method section.
+
+  \item ``Scheduled promotions return routed evidence to later proposals'' and
+  ``gives cheap timing signals selection influence'' are difficult for a
+  general reader. A clearer summary is:
+
+  \begin{quote}
+  Placement, timing, and scheduled routing measurements are returned as
+  feedback for subsequent proposals.
+  \end{quote}
+
+  \item The first and fourth contributions overlap because both emphasize
+  readable symbolic objectives. The first should focus on the search
+  formulation; the fourth should focus on the inspectable, editable artifact
+  returned by the search.
+\end{enumerate}
+
+\section{Recommended Revision Priorities}
+
+The Introduction is conceptually solid. Revision should prioritize the
+following changes:
+
+\begin{enumerate}
+  \item Make the characterization of prior work more measured and defensible.
+  \item Define the restricted objective-program search space accurately.
+  \item State the novelty as search over the objective's functional form with
+  the optimizer held fixed.
+  \item Explain the meaning of ``co-evolving.''
+  \item Add routed experimental evidence that supports the motivation and
+  title, if such evidence is available.
+  \item Clarify the averaging scope and direction of all reported results.
+  \item Reduce implementation detail in the introductory method summary.
+\end{enumerate}
+
+\clearpage
+\part{Related Work Review}
+
+\section{Review Scope}
+
+This part reviews the substance and organization of the Related Work section.
+It focuses on technical accuracy, fairness to prior work, coverage of the most
+relevant research directions, the clarity of the novelty comparison, and
+readability. Citation and reference formatting are intentionally excluded.
+
+\section{Overall Assessment}
+
+The Related Work section is concise and organized around three useful themes:
+routing-aware placement, automated placement search, and executable LLM
+program evolution. It includes several of the closest comparisons, especially
+RoutePlacer, EvoPlace, VeoPlace, Eureka, and LLM-SR. Each paragraph also tries
+to identify the artifact modified by prior work and contrast it with
+CoEvoP\&R's objective-program search.
+
+The main weakness is that several technically different methods are compressed
+into categories that are too broad. Reviewers familiar with these papers may
+challenge the resulting descriptions. The section should make its comparison
+axes more precise and devote more attention to the closest work instead of
+listing many broad LLM-for-EDA examples.
+
+\section{Technical-Accuracy Perspective}
+
+\begin{enumerate}
+  \item \textbf{The historical attribution to RePlAce should be corrected.}
+  ``RePlAce established the electrostatic density formulation'' is inaccurate
+  or at least misleading. The electrostatics-based placement formulation is
+  generally associated with ePlace; RePlAce subsequently advanced this
+  analytical-placement framework. A safer formulation is:
+
+  \begin{quote}
+  ePlace introduced the electrostatics-based placement formulation, which
+  RePlAce and DREAMPlace subsequently advanced through improved optimization
+  and GPU acceleration.
+  \end{quote}
+
+  If ePlace is not discussed elsewhere, it should likely be added here.
+
+  \item \textbf{RUDY should be described as a routing-demand estimator.} RUDY
+  is not inherently a differentiable objective term. It estimates routing
+  demand from placement geometry, and later placement methods can incorporate
+  RUDY-derived quantities into congestion-aware objectives. A more precise
+  formulation is:
+
+  \begin{quote}
+  Hand-designed routing estimators such as RUDY approximate routing demand
+  from placement geometry and can be incorporated into congestion-aware
+  placement objectives.
+  \end{quote}
+
+  \item \textbf{LaMPlace, GOALPlace, and RoutePlacer should not be presented as
+  though they use equivalent mechanisms.} Their roles should be mapped
+  explicitly:
+  \begin{itemize}
+    \item LaMPlace learns pixel-level masks for cross-stage metrics in macro
+    placement.
+    \item GOALPlace learns post-route-informed density targets using an
+    empirical-Bayes approach.
+    \item RoutePlacer trains a graph neural network as a differentiable
+    approximation of routability and integrates it into gradient-based
+    placement.
+  \end{itemize}
+
+  The current phrase ``through masks, graph neural networks, and learned
+  routability signals'' does not clearly associate each mechanism with its
+  method.
+
+  \item \textbf{The comparison with LaMPlace should acknowledge task scope.}
+  LaMPlace concerns macro placement and generates masks for sequential
+  placement decisions, whereas CoEvoP\&R operates inside a mixed-size
+  analytical placement objective. Treating both simply as learned downstream
+  surrogates hides this important distinction.
+
+  \item \textbf{The first heading does not match all of its contents.}
+  ``Routability-Aware Objectives'' begins with RePlAce and DREAMPlace, which
+  are foundational analytical placers rather than specifically
+  routability-aware objective methods. A clearer heading is
+  ``Analytical and Routability-Aware Placement.''
+
+  \item \textbf{The second heading is too narrow.} ``Foundation-Model
+  Placement Search'' also includes reinforcement learning and Bayesian
+  optimization, neither of which is necessarily foundation-model search. A
+  better heading is ``Automated and Foundation-Model Placement Search.''
+\end{enumerate}
+
+\section{Novelty-Positioning Perspective}
+
+\begin{enumerate}
+  \item \textbf{EvoPlace deserves a sharper comparison.} It appears to be one
+  of the closest works in terms of LLM-guided evolution around analytical
+  placement. The essential distinction should be stated directly:
+
+  \begin{quote}
+  EvoPlace searches optimizer implementation components while retaining the
+  placement objective; CoEvoP\&R fixes the optimizer and searches the objective
+  program.
+  \end{quote}
+
+  \item \textbf{Eureka is also methodologically close.} Its generated reward
+  functions execute during a learning loop, so the statement ``These systems
+  evaluate generated programs after execution'' is too broad. The distinction
+  is not simply execution after the fact versus execution inside an optimizer.
+  A more defensible comparison is:
+
+  \begin{quote}
+  Unlike prior program-evolution systems, CoEvoP\&R must admit generated
+  objective expressions into an existing differentiable EDA optimization loop,
+  requiring finite values, valid gradients, and stable behavior throughout
+  placement.
+  \end{quote}
+
+  \item The novelty should be organized around the \emph{artifact modified}:
+  parameters, macro-placement actions, optimizer components, learned
+  surrogates, or the differentiable objective form. This is the cleanest basis
+  for distinguishing CoEvoP\&R from the closest methods.
+
+  \item The section should avoid implying that using an LLM or executing a
+  generated program is itself the central novelty. The stronger claim is the
+  search over restricted, differentiable objective programs evaluated inside
+  the fixed analytical optimizer and informed by downstream routing evidence.
+\end{enumerate}
+
+\section{Consistency with the Method Section}
+
+\begin{enumerate}
+  \item ``CoEvoP\&R places generated code inside DREAMPlace's autograd path''
+  conflicts slightly with the Method statement that raw model code is never
+  imported or executed. The Related Work section should refer to ``lowered
+  objective expressions'' or ``validated symbolic programs.''
+
+  \item ``Before routed validation'' suggests that every valid objective is
+  routed. According to the Method, only scheduled Tier-C promotions receive
+  routed evaluation. A more accurate formulation is:
+
+  \begin{quote}
+  before placement evaluation and possible promotion to routed validation.
+  \end{quote}
+
+  \item ``Scheduled routed promotions condition later objective proposals'' is
+  unnecessarily method-specific and difficult to parse. ``Uses scheduled
+  routing results as feedback for subsequent objective proposals'' is clearer.
+
+  \item Terminology should remain consistent across sections, particularly
+  ``routing-aware'' versus ``routability-aware,'' ``post-GRT'' versus
+  ``post-route,'' and ``generated code'' versus ``lowered objective program.''
+\end{enumerate}
+
+\section{Coverage and Balance Perspective}
+
+\begin{enumerate}
+  \item The routing-aware paragraph moves directly from RUDY to three learned
+  methods. This may appear selective to a domain reviewer. It should briefly
+  acknowledge other important classical directions, such as cell inflation,
+  congestion-aware density control, global-routing feedback, pin-density or
+  pin-accessibility terms, and differentiable congestion estimation.
+
+  \item These classical approaches do not all require detailed discussion. A
+  single synthesis sentence can demonstrate awareness of the broader field and
+  prevent the two-category framing from appearing constructed only to motivate
+  the proposed method.
+
+  \item The broad LLM-for-EDA examples---ChipNeMo, RTLCoder, MasterRTL, and
+  VeriLoC---are less directly relevant than EvoPlace, Eureka, LLM-SR, or
+  RoutePlacer. If space is limited, shorten the general survey and use the
+  recovered space for deeper comparison with the closest approaches.
+
+  \item ChiPBench is an evaluation benchmark rather than a placement-search
+  method. Its role in validating whether placement gains survive downstream
+  flow is relevant, but this role should be separated clearly from the list of
+  systems that search parameters, optimizer components, or actions.
+\end{enumerate}
+
+\section{General-Reader and Language Perspective}
+
+\begin{enumerate}
+  \item Several paragraphs read as lists of papers followed by one sentence
+  about CoEvoP\&R. More synthesis would help the reader understand the design
+  dimensions and tradeoffs instead of merely recognizing method names.
+
+  \item Ending every paragraph with a short CoEvoP\&R contrast is useful but
+  repetitive. The paper could synthesize the comparisons in a concluding
+  paragraph or compact table, allowing the individual paragraphs to describe
+  prior work more neutrally.
+
+  \item ``Readable symbolic objective forms'' is somewhat subjective.
+  ``Compact symbolic objective forms'' or ``restricted symbolic objective
+  programs'' is more measurable and consistent with the Method.
+
+  \item The mechanism descriptions should map explicitly to individual works
+  instead of relying on the order of method names and technical phrases.
+\end{enumerate}
+
+\section{Recommended Organization}
+
+A clearer three-part organization would be:
+
+\begin{enumerate}
+  \item \textbf{Analytical and routability-aware placement.} Cover
+  foundational analytical objectives, hand-designed routing estimators,
+  congestion-aware techniques, and learned downstream guidance.
+
+  \item \textbf{Automated search for placement.} Organize methods by the
+  artifact searched: parameters, placement actions, optimizer code, or
+  objective form.
+
+  \item \textbf{Executable program evolution.} Discuss reward-function,
+  heuristic, symbolic-equation, and code evolution, followed by the
+  differentiability and EDA-validation requirements specific to CoEvoP\&R.
+\end{enumerate}
+
+If space permits, a compact comparison table could make the principal
+distinctions easier to verify:
+
+\begin{center}
+\small
+\begin{tabular}{|p{0.20\textwidth}|p{0.23\textwidth}|p{0.22\textwidth}|p{0.22\textwidth}|}
+\hline
+\textbf{Method family} & \textbf{Artifact modified} & \textbf{Feedback} &
+\textbf{Output} \\
+\hline
+AutoDMP and\newline HyperPlace & Hyperparameters & Placement metrics & Parameter
+configuration \\
+\hline
+VeoPlace & Macro actions & Placement metrics & Placement \\
+\hline
+EvoPlace & Optimizer components & HPWL & Optimizer code \\
+\hline
+RoutePlacer & Learned routability model & Routing labels & Neural surrogate \\
+\hline
+CoEvoP\&R & Differentiable objective form & Placement, timing, and routing &
+Symbolic objective \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Recommended Revision Priorities}
+
+\begin{enumerate}
+  \item Correct the historical attribution of electrostatics-based placement
+  and consider adding ePlace.
+  \item Describe RUDY as a routing-demand estimator rather than inherently as
+  an objective term.
+  \item Separate the mechanisms and scopes of LaMPlace, GOALPlace, and
+  RoutePlacer.
+  \item Deepen the comparisons with EvoPlace and Eureka.
+  \item Replace ``generated code'' with terminology consistent with the
+  restricted lowering interface.
+  \item Broaden the classical routing-aware coverage with one concise synthesis
+  sentence.
+  \item Reduce broad LLM-for-EDA examples if space is needed for closer work.
+\end{enumerate}
+
+\clearpage
+\part{Method Review}
+
+\section{Review Scope}
+
+This part reviews the Method section, Algorithm~1, Figure~1, and Figure~2. It
+separates fundamental logical inconsistencies from lower-priority notation,
+reproducibility, and presentation issues. The review does not use or assess the
+Experiments and Results section.
+
+\section{Overall Assessment}
+
+The Method has a strong conceptual architecture. Its most promising elements
+are complete objective replacement, a restricted symbolic language,
+optimizer-embedded validation, cost-aware evaluation, negative memory, and an
+auditable archive. The separation between the LLM, the controller, and the EDA
+tools is also valuable.
+
+The principal problem is not a lack of technical depth. Several sophisticated
+mechanisms are described in parallel without all of their mathematical and
+algorithmic connections being closed. These inconsistencies should be resolved
+before sentence-level proofreading because they affect the core claims of the
+paper.
+
+\section{Critical Internal Inconsistencies}
+
+\subsection{Figure 1 Contradicts Complete Objective Replacement}
+
+The Method explicitly states that Equation~2 defines the complete minimized
+objective and is not a residual around a hidden native loss. Figure~1 instead
+depicts
+
+\[
+f_\theta(\mathbf{x};d)=f_{\mathrm{base}}(\mathbf{x};d)
++\sum_j\alpha_jh_j(T(\mathbf{x};d)),
+\]
+
+which is a residual added to a base objective. This directly contradicts one
+of the paper's central novelty claims. Figure~1 should instead visualize the
+restricted complete objective, for example,
+
+\[
+f_\theta(\mathbf{x};d)=\kappa_{\mathrm{wl}}
+F_\theta\!\left(\widetilde{\mathcal T}(\mathbf{x};d)\right).
+\]
+
+This is the most urgent figure correction.
+
+\subsection{The Timing-Proxy Weight Does Not Affect Selection}
+
+The Method defines a timing-proxy weight $\gamma_q$ in the proxy-admission
+equation, but $\gamma_q$ never appears in the Tier-A selection score, final
+score, parent policy, or archive-update equation. Therefore, the mathematical
+method does not currently support the claim that timing proxies affect
+selection.
+
+The timing contribution must enter an explicitly defined score, eligibility
+rule, ranking, or parent policy. For example, if consistent with the intended
+implementation, a term of the following form could be incorporated into a
+selection score:
+
+\[
+\sum_q \gamma_q w_q g_q(f).
+\]
+
+The algorithm introduces a second ambiguity by running Tier~B ``only if
+proxy-admitted.'' Tier-B evaluation appears necessary to obtain the proxy
+values being audited. The paper must distinguish admission of a global proxy
+signal from admission of an individual candidate to Tier~B; otherwise, the
+logic appears circular.
+
+\subsection{Routed Feedback Does Not Formally Affect Parent Selection}
+
+The text states that each routed promotion can change parent selection,
+retrieval, or failure context. However, the parent probability depends only on
+the Tier-A score, distance from a fixed mechanism, and mechanism frequency. No
+Tier-C or routed quantity appears in the parent policy.
+
+Routed results can clearly enter later prompts through feedback
+reconstruction, but their effect on parent selection is not defined. The paper
+should choose one of two interpretations:
+
+\begin{enumerate}
+  \item State that routed evidence affects retrieval and proposal context but
+  not parent selection; or
+  \item Add a routed-evidence term, eligibility update, or archive update that
+  explicitly changes the parent pool or parent weights.
+\end{enumerate}
+
+Because routing feedback is central to the title, this connection must be
+unambiguous.
+
+\subsection{The Search and Final Evidence Split Is Ambiguous}
+
+The text says final-panel metrics never enter prompts or archive fitness, but
+the returned objective is selected using $S_{\mathrm{final}}$ over the routed
+subset of the final archive. It is unclear whether ``final'' means the archive
+at generation $G$, search-panel Tier-C evidence, or a held-out final evaluation
+panel.
+
+If held-out final-panel metrics select $f^*$, the panel is no longer a purely
+held-out reporting panel. A clearer formulation would define separate panels,
+
+\[
+\mathcal D_S=\text{search panel},\qquad
+\mathcal D_F=\text{held-out final panel},
+\]
+
+select using search-panel routed evidence,
+
+\[
+f^*=\arg\max_{f\in\mathcal A_G^{C,S}}S_C^S(f),
+\]
+
+and evaluate the already selected $f^*$ on $\mathcal D_F$ only for final
+reporting.
+
+\subsection{The Complexity Tie-Break Claim Is Mathematically Incorrect}
+
+The final score subtracts $\eta_Cc(f)$ from the routed-rank score and then says
+that complexity matters only when ranks tie. This is not generally true: the
+complexity term can reverse a non-tied rank ordering unless $\eta_C$ is bounded
+appropriately.
+
+If complexity is intended only as a tie-breaker, use a lexicographic rule:
+
+\begin{enumerate}
+  \item Maximize the routed-rank score.
+  \item Among tied candidates, minimize complexity.
+\end{enumerate}
+
+Alternatively, provide a bound proving that the complexity penalty cannot
+overcome any nonzero rank difference.
+
+\section{Problem Formulation}
+
+\begin{enumerate}
+  \item Clarify whether each term scale $\kappa_j$ is specific to a design,
+  seed, objective, or complete search run.
+
+  \item Specify which placement and objective call determine the ``first-call''
+  scale and how zero or extremely small values are handled.
+
+  \item Clarify whether $\kappa_{\mathrm{wl}}$ is design-specific and how it is
+  computed.
+
+  \item Define exactly what constitutes a wirelength or density ``anchor.'' It
+  is unclear whether an anchor must appear additively or may occur only inside
+  a nonlinear interaction.
+
+  \item Explain how the panel-specific metric scales $\nu_j$ are chosen and
+  demonstrate that their construction does not use held-out final-panel
+  information.
+
+  \item State whether budgets count candidates, complete panels, individual
+  designs, or design-seed runs. The mathematical text calls them placement,
+  timing, and routing ``calls,'' while the algorithm increments once per
+  candidate.
+
+  \item The notation $F_\theta$ may suggest trained parameters. If $\theta$
+  represents an LLM-proposed program structure and constants rather than
+  learned parameters, say so explicitly.
+
+  \item ``Keeping the optimizer fixed'' should specify which elements remain
+  unchanged: initialization, learning-rate schedule, density-weight schedule,
+  preconditioning, legalization, detailed placement, and term
+  implementations. A reviewer will want to know whether objective replacement
+  indirectly changes any optimizer-specific schedules.
+
+  \item Clarify whether WNS and TNS are treated as signed negative quantities
+  so that $o_j=+1$ is directionally correct.
+\end{enumerate}
+
+\section{Archive-Conditioned Proposal}
+
+The proposal mechanism is promising but requires additional definitions for
+reproducibility.
+
+\begin{enumerate}
+  \item Define $d_{\mathrm{base}}$, the distance metric, and the set of ``fixed
+  mechanisms'' against which distance is measured.
+
+  \item Define a mechanism signature and explain how signatures are extracted
+  from the lowered program.
+
+  \item Define the bounds that permit a candidate to enter the near-miss pool.
+
+  \item Give the cardinalities and selection criteria for
+  $\operatorname{Top}$, $\operatorname{Diverse}$,
+  $\operatorname{NearMiss}$, and $\operatorname{RelevantFail}$.
+
+  \item Explain how relevant failures are matched to a selected parent's terms
+  or mechanisms.
+
+  \item State the number and coefficient values of deterministic siblings and
+  how their coefficient ranges are selected.
+
+  \item Give the maximum number of provider retries and identify the sampling
+  temperature, randomization settings, and decoding limits.
+
+  \item ``Prevents repeated sampling'' is too strong. The mechanism-count
+  denominator discourages repeated sampling but does not prevent it.
+
+  \item Distinguish static/schema repair retries from autograd rejection,
+  placement failure, and completed metric regression. The phrase ``malformed
+  or rejected responses'' could imply that every failure type triggers an
+  immediate provider retry, while Figure~2 suggests that some failures enter
+  negative memory instead.
+
+  \item Clarify whether the claimed $K$ independent samples remain independent
+  after provider repair retries and whether deterministic provider behavior is
+  controlled through explicit seeds when available.
+\end{enumerate}
+
+\section{Safe Objective Lowering}
+
+The separation between raw responses and lowered expressions is a major
+strength. However, the searched language and numerical gates require more
+formal specification.
+
+\subsection{Define the Allowed Term Library}
+
+The Method names weighted-average and log-sum-exp wirelength, electric and
+bell-shaped density, soft-RUDY, long-net pressure, pin density, and
+pin-count-weighted pressure, but does not provide their mathematical
+definitions. Because the objective program is the central searched artifact,
+the paper should provide a table or appendix containing, for every allowed
+term:
+
+\begin{itemize}
+  \item Mathematical expression
+  \item Required inputs
+  \item Smoothing constants
+  \item Normalization
+  \item Gradient behavior
+  \item Computational cost
+  \item Availability conditions
+\end{itemize}
+
+Without these definitions, the reader cannot reproduce or fully assess the
+objective search space.
+
+\subsection{Clarify the Restricted Language}
+
+\begin{enumerate}
+  \item ``The action space is finite'' may be too strong if numeric constants
+  can take arbitrary values. ``Restricted action space'' or ``bounded program
+  structure'' is safer unless the literal set is explicitly finite.
+
+  \item Define ``safe division,'' including its epsilon or clamping rule.
+
+  \item State whether AST depth and primitive limits apply per expression or to
+  the complete program, including all local assignments.
+
+  \item Define allowed coefficient ranges and explain how they were selected.
+
+  \item Explain how baseline clones are detected: structural equality,
+  canonicalized AST equality, or numerical equivalence.
+
+  \item Define exactly how ``one wirelength family'' and ``one density family''
+  are counted when terms occur multiple times or inside nonlinear expressions.
+\end{enumerate}
+
+\subsection{Strengthen the Dynamic Safety Definition}
+
+The condition
+
+\[
+0<\|\nabla_{\mathbf{x}}f(\mathbf{x}_0)\|_2<\infty
+\]
+
+may reject a valid objective if the initialization happens to be stationary.
+Conversely, a very large but finite gradient passes. Consider explicit lower
+and upper numerical thresholds, possibly normalized against the native
+objective.
+
+The paper should also clarify whether the dynamic gate is applied independently
+for every design and seed. Because the first-call test establishes only local
+executability, the notation $\mathcal F_{\mathrm{safe}}$ may overstate the
+guarantee. ``Locally executable candidates'' would be more precise unless a
+stronger property is established.
+
+Runtime guards should specify whether they test only finiteness or also detect
+finite but exploding objectives and gradients.
+
+\section{Cost-Scaled Evaluation}
+
+The three-tier architecture is sensible, but this subsection contains several
+conceptually different mechanisms. It would be clearer if divided into:
+
+\begin{enumerate}
+  \item Evaluation cascade
+  \item Tier-A feasibility and scoring
+  \item Timing-proxy audit
+  \item Routed promotion and final selection
+\end{enumerate}
+
+\subsection{Evaluation Cascade}
+
+\begin{enumerate}
+  \item ``OpenROAD/ChiPBench'' makes ChiPBench sound like a routing engine.
+  Describe the relationship precisely, such as an OpenROAD flow configured or
+  evaluated through ChiPBench, if that matches the implementation.
+
+  \item Clearly distinguish FLUTE/Elmore timing from OpenTimer placement-RC
+  timing and state which one is used during search, candidate selection, and
+  final reporting.
+
+  \item State whether placement-RC timing is evaluated before or after
+  legalization and which parasitics, libraries, clocks, and constraints are
+  used.
+
+  \item Clarify whether every promoted Tier-C candidate is evaluated on the same
+  designs and seeds so that downstream comparisons are genuinely matched.
+\end{enumerate}
+
+\subsection{Tier-A Gate and Score}
+
+\begin{enumerate}
+  \item Define ``structural failure'' and ``severe regression,'' including all
+  thresholds.
+
+  \item Explain whether worst-design gains first aggregate placement seeds or
+  whether the minimum is taken over every design-seed pair.
+
+  \item Define the rank averaged by $\bar r_A$: the ranked quantity, direction,
+  treatment of ties, and aggregation across metrics and design-seed cells.
+
+  \item Define the complexity function $c(f)$ and its scale.
+
+  \item ``The strongest HPWL/overflow member'' is ambiguous because a fixed
+  portfolio can have a Pareto frontier rather than one strongest member.
+
+  \item Formalize the additional fixed-portfolio and Pareto gate. It currently
+  appears only in prose and is not represented in $\chi_A$ or the algorithm.
+
+  \item Explain why HPWL and density enter both as direct gains and through the
+  rank term, and whether this intentionally gives them additional weight.
+\end{enumerate}
+
+\subsection{Timing-Proxy Audit}
+
+The perturbation audit needs a reproducible definition of the perturbations
+and statistics. Specify:
+
+\begin{itemize}
+  \item What is perturbed
+  \item How perturbations are sampled
+  \item Number of samples
+  \item Whether correlations are pooled across designs or computed per design
+  \item Minimum sample count
+  \item Treatment of ties and missing timing values
+  \item Exact computation of $a_C(q)$
+  \item Meaning of ``preserve rank direction''
+  \item Justification for the 0.70 and 0.95 thresholds
+\end{itemize}
+
+Low correlation with HPWL establishes only non-redundancy with HPWL; it does
+not establish that a timing proxy is informative rather than noisy. The routed
+agreement test is therefore essential and should be specified rigorously.
+
+The phrase ``held-out routed promotions'' should also identify what those
+promotions are held out from and confirm that they are distinct from the final
+reporting panel.
+
+\subsection{Routed Promotion and Final Ranking}
+
+\begin{enumerate}
+  \item Define how high-$S_A$ candidates and occupants of uncovered mechanism
+  cells are balanced within a promotion batch.
+
+  \item Define ``matched downstream evidence,'' particularly when some
+  post-GRT metrics are unavailable.
+
+  \item Define $\bar r_C$: metrics included, orientations, design and seed
+  aggregation, treatment of ties, and treatment of missing values.
+
+  \item Ensure that candidates are not rewarded for missing difficult metrics
+  merely because the score averages only ``reported'' metrics.
+
+  \item Consider whether a feasibility or worst-case gate is required before
+  final rank averaging so that a catastrophic regression in one routed metric
+  cannot be hidden by improvements in others.
+\end{enumerate}
+
+\section{Archive and Closed-Loop Feedback}
+
+The detailed archive record is a strength and supports the auditability claim.
+The MAP-Elites and feedback mechanisms nevertheless require further
+specification.
+
+\begin{enumerate}
+  \item Define all bin boundaries for objective size, HPWL, density, and timing.
+
+  \item Explain whether mechanism labels are determined from declared term
+  usage, parsed AST structure, or observed behavior.
+
+  \item Define the treatment of hybrid mechanisms and missing timing.
+
+  \item Give deterministic tie-breaking rules for candidates with equal scores
+  in one cell.
+
+  \item Use island-specific notation in the archive-update equation or explain
+  how the global archive and island archives relate.
+
+  \item Define migration frequency, number of migrants, and whether copied
+  elites retain their original island identity and lineage.
+
+  \item Avoid overloading the notation $m_j$, $m(f)$, and $\mathbf m_g$ for an
+  evaluator metric, mechanism category, and feedback scorecard.
+
+  \item Explain how ``repair lessons'' are generated. State whether they are
+  deterministic templates derived from failure codes or model-generated
+  summaries.
+
+  \item Clarify which archive fields a routed result can change. This is
+  necessary to support the claim that routing evidence changes the closed-loop
+  search rather than merely being stored for later display.
+
+  \item ``Provider snapshot'' may be difficult to guarantee for closed model
+  APIs. Specify exactly which provider and model-version metadata can be
+  archived.
+\end{enumerate}
+
+\section{Algorithm 1}
+
+Algorithm~1 is useful, but it does not yet fully match the prose and equations.
+
+\begin{enumerate}
+  \item The number of islands $I$ is used but is not listed as an input.
+
+  \item The initial feedback packet $\mathbf m_0$ is not defined.
+
+  \item Dynamic finite-value and autograd admission is not shown.
+
+  \item Provider retries and their budget are omitted.
+
+  \item The lowered candidate set $\mathcal S_g$ defined earlier is never used;
+  the algorithm instead introduces raw responses $\mathcal Y_g$ and lowers
+  them again.
+
+  \item The Tier-B ``proxy-admitted'' condition must be reconciled with the
+  proxy-audit procedure.
+
+  \item The timing weight $\gamma_q$ never affects insertion, scoring, parent
+  sampling, or archive updates.
+
+  \item Budget increments should state whether a multi-design panel counts as
+  one evaluation or multiple design-seed calls.
+
+  \item Once $B_A$ is exhausted, only the innermost calibration loop breaks;
+  the outer candidate and generation loops continue. The intended termination
+  behavior should be shown.
+
+  \item Migration scheduling should explicitly use $\tau_{\mathrm{mig}}$.
+
+  \item The algorithm should define behavior when no candidate receives valid
+  Tier-C evidence and $\mathcal A_G^C$ is empty.
+
+  \item Held-out final-panel evaluation is absent. Add it after selection if
+  the panel is intended only for reporting.
+
+  \item The algorithm should show the fixed-portfolio/Pareto elite gate if that
+  gate affects archive insertion or routed eligibility.
+\end{enumerate}
+
+Algorithm~1 should be revised only after the timing score, routed-feedback
+path, and evidence split are settled; otherwise, it will need to be rewritten
+multiple times.
+
+\section{Figure 1 Review}
+
+\subsection{Strengths}
+
+\begin{itemize}
+  \item The proposal, tools, and memory stages make the high-level loop
+  intuitive.
+  \item The closed feedback path is visually prominent.
+  \item Negative memory and the MAP-Elites archive are represented clearly.
+\end{itemize}
+
+\subsection{Concerns}
+
+\begin{enumerate}
+  \item Replace the residual-objective formula, which contradicts complete
+  objective replacement.
+
+  \item Tier~C should be labeled ``scheduled routed promotions'' rather than
+  ``selected finalist.'' Final selection occurs only after routed evidence is
+  collected.
+
+  \item The Tier A $\rightarrow$ Tier B $\rightarrow$ Tier C flow implies that
+  every Tier-C candidate passes through Tier~B. This does not clearly match the
+  prose, where timing is conditional and Tier-C promotion is based primarily
+  on Tier-A elites and mechanism coverage.
+
+  \item Mutation labels such as ``recombine'' and ``simplify'' should appear in
+  the text if they are actual controller modes. Otherwise, use only the modes
+  implemented and described.
+
+  \item The five-dimensional MAP-Elites archive is drawn as a two-dimensional
+  grid. Label it as a schematic projection.
+
+  \item Several labels are likely to be too small at final two-column print
+  size. Verify the minimum font size in the compiled paper.
+
+  \item The caption should explain the green, gray, and red paths and identify
+  which failures are retried versus stored as negative memory.
+
+  \item ``BRAIN'' may sound anthropomorphic. ``Proposal,'' ``Evaluation,'' and
+  ``Archive and Feedback'' would be more technical stage names.
+
+  \item The figure should show explicitly whether routed evidence changes
+  parent scoring, archive eligibility, or only the next prompt context.
+\end{enumerate}
+
+\section{Figure 2 Review}
+
+\subsection{Strengths}
+
+\begin{itemize}
+  \item The figure clearly separates the response schema from the executable
+  record.
+  \item The rejected-candidate paths are useful.
+  \item The example helps make the restricted objective-program concept
+  concrete.
+\end{itemize}
+
+\subsection{Concerns}
+
+\begin{enumerate}
+  \item The caption implies that schema, AST, term, and autograd checks all
+  lower a response into \texttt{ObjectiveSpec}. The diagram and Method instead
+  place autograd validation after lowering. Distinguish static lowering from
+  dynamic admission.
+
+  \item The finite-value and autograd gate occurs on the first DREAMPlace
+  objective call, not entirely before DREAMPlace evaluation. The figure should
+  show the gate inside or at the boundary of the first DREAMPlace call.
+
+  \item The example term \texttt{soft\_rudy\_pnorm} should match the term names
+  and categories used in the prose.
+
+  \item The prompt tuple should use the same field ordering and notation as the
+  corresponding equation unless a reason for the difference is stated.
+
+  \item Schema validation appears both in ``Schema-bound JSON'' and in the
+  later grammar/schema check. Remove the apparent duplication or explain the
+  two distinct schema checks.
+
+  \item Static retry failures and dynamic negative-memory failures should have
+  visually distinct destinations.
+
+  \item Text is likely too small when the figure is printed at one-column
+  width. Verify readability in the compiled manuscript rather than only in the
+  source PDF.
+
+  \item Clarify whether only a lowered \texttt{ObjectiveSpec} enters the
+  optimizer, consistent with the statement that raw model code is never
+  executed.
+\end{enumerate}
+
+\section{Structural and Presentation Recommendations}
+
+\begin{enumerate}
+  \item Divide Cost-Scaled Evaluation into explicit subsubsections for the
+  cascade, Tier-A score, proxy audit, and routed promotion.
+
+  \item Divide Archive and Closed-Loop Feedback into separate archive and
+  feedback subsections.
+
+  \item Avoid placing two section labels on one subsection; give the proxy audit
+  and search procedure their own visible headings.
+
+  \item Add a compact notation table. The Method introduces many sets, scores,
+  scales, counts, gates, and archive descriptors before all are defined.
+
+  \item Add a term-library table containing the objective observables and their
+  formulas.
+
+  \item Include one concrete candidate objective example in the text and trace
+  it through lowering, Tier-A evaluation, possible routing promotion, and
+  archive insertion.
+
+  \item Reduce forward references such as ``score defined below'' where a short
+  reordering would make the procedure easier to follow.
+\end{enumerate}
+
+\section{Recommended Revision Order}
+
+\begin{enumerate}
+  \item Correct Figure~1's objective formula.
+  \item Formalize the search-panel and final-panel split.
+  \item Connect $\gamma_q$ to an actual selection rule.
+  \item Decide whether routed evidence affects parent selection or only prompt
+  context.
+  \item Correct the final complexity tie-break.
+  \item Define the objective-term library and normalization scales.
+  \item Align Algorithm~1 with the corrected logic.
+  \item Revise Figure~1 and Figure~2 to match the algorithm precisely.
+  \item Only then perform sentence-level condensation and proofreading.
+\end{enumerate}
+
+The section's underlying idea remains strong. Once the missing mathematical
+connections are made explicit, the Method will become substantially more
+convincing, reproducible, and easier to review.
+
+\end{document}
